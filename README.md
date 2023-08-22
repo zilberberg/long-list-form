@@ -43,16 +43,33 @@ You can choose any other state management solution you prefer instead of the bui
 - Support add a new user functionality - onClick on the plus button on the top
   a click on the plus button should render a new row above the existing rows (newly added row would be first),
   it's field values would be empty (a placeholder of the input name should be shown inside each input when empty)
-
-  - render how many users in total are currently on the list (how many rows) - number in parentesis near the Users List title
+- Render how many users in total are currently on the list (how many rows) - show number in parentesis near the Users List title
 
 - **Validation and Error management:**
 
   - On change of each input, if invalid value has been entered, the field should have an 'error' state - it's border will become red (by passing error={true} prop to the input)
-  - Validation rules for the task: - name should include only letters a-z (not case sensitive) - country should be one of the countries in the options provided - email - you can use an email validation regex, or for simplicity - email must contain exactly one '@' character. - phone - must have a '+' character as first character, but only one '+' (for simplicity we won't check numeric characters etc)
 
-  - Empty string is also invalid, but not at the first render, just after it had some value and it was deleted
+  - Validation rules for the task:
+    - name should include only letters a-z (not case sensitive)
+    - country should be one of the countries in the options provided
+    - email - you can use an email validation regex, or for simplicity - email must contain exactly one '@' character
+    - phone - must have a '+' character as first character, but only one '+' (for simplicity we won't check numeric characters etc)
+    
+
+  - Empty string also produces an error, but not at the first render, just after it had some value and it was deleted. So if I just added a new row, and didn't start typing anything, it will not be counted as an error for the error count.
+  
+  - **Error Count**
+  
+    Distinguish between empty errors (had value and it was deleted) and invalid errors (not matching the validation requirements but not empty):
+
+    Render a separate container beneath the users container and above the save button, which includes information counting the error types, like so: (you can design this as you wish)
+
+    ``"Errors: Empty Fields - 2, Invalid Fields - 5"``
+
+    It means there are 7 fields with red border overall, 5 of them include invalid content but not empty, 2 of them are empty.
+
   - Save button should be disabled if there is at least one error, or if there is at least one empty field (on blur on a new row - empty fields are marked as error)
+
   - Successful save => updates the shared global state (as mentioned before) and local error states should be reset
   - Pay attention when you implement row deletion, take care also of it's errors if it had any.
 
@@ -64,6 +81,13 @@ You can choose any other state management solution you prefer instead of the bui
   - Search - add a search input on the top of the users list, on change of the search string, it will filter the users and show only those that have the search string included in one of user's fields.
   - After scrolling a very long way down there are a lot of elements that are already rendered and the performance can get poor. Implement a solution to deal with rendering and scrolling when you have a large list of heavy rows.
   - Persist users data - after refresh the changes that were made don't get lost
+=======
+- **Extra:**
+  - After scrolling a very long way down there are a lot of elements that are already rendered and the performance can get poor. Implement a solution to deal with rendering and scrolling when you have a large list of heavy rows.
+  - Persist users data - after refresh the changes that were made don't get lost
+  - Make the country field to be rendered as an autocomplete/select from the provided options (with a dropdown of choices) others remain input type text.
+  - Implement the loading state and some ui while users data is loading.
+  - Search - add a search input on the top of the users list, on change of the search string, it will filter the users and show only those that have the search string included in one of user's fields.
 
 ### Statistics Page
 
