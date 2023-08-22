@@ -54,12 +54,12 @@ You can choose any other state management solution you prefer instead of the bui
     - country should be one of the countries in the options provided
     - email - you can use an email validation regex, or for simplicity - email must contain exactly one '@' character
     - phone - must have a '+' character as first character, but only one '+' (for simplicity we won't check numeric characters etc)
-    
+
 
   - Empty string also produces an error, but not at the first render, just after it had some value and it was deleted. So if I just added a new row, and didn't start typing anything, it will not be counted as an error for the error count.
-  
+
   - **Error Count**
-  
+
     Distinguish between empty errors (had value and it was deleted) and invalid errors (not matching the validation requirements but not empty):
 
     Render a separate container beneath the users container and above the save button, which includes information counting the error types, like so: (you can design this as you wish)
@@ -73,15 +73,6 @@ You can choose any other state management solution you prefer instead of the bui
   - Successful save => updates the shared global state (as mentioned before) and local error states should be reset
   - Pay attention when you implement row deletion, take care also of it's errors if it had any.
 
-- **Bonus (optional):**
-  - Make the country field to be rendered as an autocomplete/select from the provided options (with a dropdown of choices) others remain input type text.
-  - More complexity to error management - distinguish between empty errors (had value and it was deleted) and invalid errors (not matching the validation requirements but not empty). Render beneath the users list a text counting the errors, like so:
-    "Errors: Empty Fields - 2, Invalid Fields - 5"
-  - Implement the loading state and some ui while users data is loading.
-  - Search - add a search input on the top of the users list, on change of the search string, it will filter the users and show only those that have the search string included in one of user's fields.
-  - After scrolling a very long way down there are a lot of elements that are already rendered and the performance can get poor. Implement a solution to deal with rendering and scrolling when you have a large list of heavy rows.
-  - Persist users data - after refresh the changes that were made don't get lost
-=======
 - **Extra:**
   - After scrolling a very long way down there are a lot of elements that are already rendered and the performance can get poor. Implement a solution to deal with rendering and scrolling when you have a large list of heavy rows.
   - Persist users data - after refresh the changes that were made don't get lost
