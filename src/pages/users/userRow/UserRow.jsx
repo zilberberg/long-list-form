@@ -8,14 +8,9 @@ import countryOptions from '../../../data/countries.json';
 
 const IGNORED_DATA_KEYS = ['id'];
 
-const UserRow = ({ user, onEdit }) => {
-  // if (!countryOptions.includes(user.country)) {
-  //   return;
-  // }
-
+const UserRow = ({ user, onEdit, onDelete, errors }) => {
   return (
     <Grid container className={styles.userRow} style={{display: "flex", flexDirection: "row"}}>
-      {/* Render each user row inputs and trash icon at the end of each row */}
       {
         Object.keys(user).map((dataKey, index) => {
           if (!IGNORED_DATA_KEYS.includes(dataKey)) {
@@ -27,12 +22,13 @@ const UserRow = ({ user, onEdit }) => {
                 onChangehandler={onEdit}
                 placeholder={dataKey}
                 id={user.id}
+                error={errors?.includes(dataKey)}
               />
             )
           }
         })
       }
-      <TrashIconButton />
+      <TrashIconButton handleClick={onDelete} id={user.id}/>
     </Grid>
   );
 };

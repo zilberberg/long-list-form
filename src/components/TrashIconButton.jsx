@@ -9,17 +9,12 @@ const StyledIconButton = styled(IconButton)({
   },
 });
 
-const TrashIconButton = ({ handleClick }) => {
+const TrashIconButton = ({ handleClick, id }) => {
   return (
-    <StyledIconButton aria-label="delete" size="large">
+    <StyledIconButton aria-label="delete" size="large" onClick={handleClick.bind(this, id)}>
       <DeleteIcon fontSize="inherit" />
     </StyledIconButton>
   );
-};
-
-// TODO: Implement passed props
-TrashIconButton.defaultProps = {
-  handleClick: () => {},
 };
 
 export default TrashIconButton;

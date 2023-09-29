@@ -10,21 +10,29 @@ function UsersPage() {
   const { usersData, setUsersData } = useUsersContext();
   const [ updatedUsers, setUpdatedUsers ] = useState([]);
   const [ usersDataState, setUsersDataState ] = useState([]);
-  const [ userErrors, setUserErrors ] = useState([]);
+  const [ usersErrors, setUsersErrors ] = useState([]);
 
   useEffect(() => {
     setUsersDataState(usersData);
   }, [usersData])
 
   const handleAdd = () => {
-    setUsersDataState([...usersDataState, {...userInterface, id: uuidv4()}])
+    const newUser = {...userInterface, id: uuidv4()};
+    setUpdatedUsers([...updatedUsers, newUser]);
+    setUsersDataState([newUser, ...usersDataState]);
   }
 
   const handleUserEdit = (id, name, value) => {
     let user = usersDataState.find(user => user.id == id);
     user[name] = value;
-    setUpdatedUsers([...updatedUsers, user]);
-    setUsersDataState([...usersDataState, user]);
+    let updatedUser = updatedUsers.find(user => {user.id == id});
+    if (updatedUser) {
+      updatedUser = user;
+      setUpdatedUsers([...updatedUsers]);
+    } else {
+      setUpdatedUsers([...updatedUsers, user]);
+    }
+    setUsersDataState([...usersDataState]);
   }
 
   const handleSave = () => {
@@ -36,26 +44,34 @@ function UsersPage() {
   const validateData = () => {
     let errors = [];
     updatedUsers.forEach(updatedUser => {
-      userInterface.forEach(dataKey => {
+      let userErrors = [];
+      Object.keys(userInterface).forEach(dataKey => {
         if (!updatedUser[dataKey].length) {
-          let error = {id: updatedUser.id};
-          error[dataKey] = "Invalid";
-          errors = [...errors, error];
+          userErrors.push(dataKey);
         }
       })
+      if (userErrors.length) {
+        errors.push({id: updatedUser.id, userErrors});
+      }
+      userErrors = [];
     })
-    setUserErrors(errors);
+    setUsersErrors(errors);
     return errors.length;
+  }
+
+  const handleDelete = (id) => {
+    setUsersData([...usersData.filter(user => user.id != id)]);
   }
 
   return (
     <div className={styles.pageRoot}>
       <div className={styles.pageContentContainer}>
         <UsersList 
-          usersData={[...usersDataState]}
+          usersData={usersDataState}
           handleAdd={handleAdd}
           handleUserEdit={handleUserEdit}
-          userErrors={userErrors}
+          usersErrors={usersErrors}
+          onDelete={handleDelete}
         />
         <div className={styles.rightButtonContainer}>
           <PrimaryButton
