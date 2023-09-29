@@ -10,12 +10,12 @@ const StyledTextField = styled(TextField)({
   marginRight: '10px'
 });
 
-const InputField = ({ name, value, onChangehandler, error, disabled, placeholder }) => {
+const InputField = ({ name, value, onChangehandler, error, disabled, placeholder, id }) => {
   return (
     <StyledTextField
       name={name}
       value={value}
-      onChange={(e) => onChangehandler(e.target.name, e.target.value)}
+      onChange={(e) => onChangehandler(id, e.target.name, e.target.value)}
       error={error}
       disabled={disabled}
       placeholder={placeholder}

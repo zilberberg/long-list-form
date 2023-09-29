@@ -8,10 +8,10 @@ import countryOptions from '../../../data/countries.json';
 
 const IGNORED_DATA_KEYS = ['id'];
 
-const UserRow = ({ user }) => {
-  if (!countryOptions.includes(user.country)) {
-    return;
-  }
+const UserRow = ({ user, onEdit }) => {
+  // if (!countryOptions.includes(user.country)) {
+  //   return;
+  // }
 
   return (
     <Grid container className={styles.userRow} style={{display: "flex", flexDirection: "row"}}>
@@ -24,8 +24,9 @@ const UserRow = ({ user }) => {
                 key={index}
                 name={dataKey}
                 value={user[dataKey]}
-                onChangehandler={()=>{}}
+                onChangehandler={onEdit}
                 placeholder={dataKey}
+                id={user.id}
               />
             )
           }

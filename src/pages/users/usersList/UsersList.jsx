@@ -1,22 +1,21 @@
-import { Button, Typography } from '@mui/material';
-import { useUsersContext } from '../../../context/usersContext';
+import { Typography } from '@mui/material';
 import UserRow from '../userRow/UserRow';
 import AddButton from '../../../components/AddButton';
 import styles from '../users.module.css';
 
-function UsersList() {
-  const { usersData } = useUsersContext();
-
+function UsersList(props) {
   return (
     <div className={styles.usersList}>
       <div className={styles.usersListHeader}>
         <Typography variant="h6">Users List</Typography>
-        <Typography variant="h8">Amount: {usersData.length}</Typography>
-        <AddButton />
+        <Typography variant="h8">Amount: {props.usersData?.length}</Typography>
+        <AddButton 
+          handleClick={props.handleAdd}
+        />
       </div>
       <div className={styles.usersListContent}>
-        {usersData.map((user) => (
-          <UserRow key={user.id} user={user} />
+        {props.usersData?.map((user, index) => (
+          <UserRow key={index} user={user} onEdit={props.handleUserEdit}/>
         ))}
       </div>
     </div>
