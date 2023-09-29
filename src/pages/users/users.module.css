@@ -6,8 +6,7 @@
 }
 
 .pageContentContainer {
-  width: 890px;
-
+  width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +43,7 @@
 .userRow {
   margin-block: 1px 6px;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 

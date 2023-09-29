@@ -6,6 +6,8 @@ const StyledTextField = styled(TextField)({
   textTransform: 'none',
   backgroundColor: '#909196',
   borderRadius: '4px',
+  width: 'max-content',
+  marginRight: '10px'
 });
 
 const InputField = ({ name, value, onChangehandler, error, disabled, placeholder }) => {
