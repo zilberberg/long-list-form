@@ -13,6 +13,7 @@ const StyledButton = styled(Button)({
     borderColor: 'black',
     color: 'black',
   },
+  width: 'min-content'
 });
 
 const PrimaryButton = ({ children, disabled, handleClick }) => {

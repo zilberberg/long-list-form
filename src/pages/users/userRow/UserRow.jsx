@@ -5,10 +5,20 @@ import styles from '../users.module.css';
 
 // user country must be one of those - for select/autocomplete implementation
 import countryOptions from '../../../data/countries.json';
+import validateObject from '../../../utils/Validator';
 
 const IGNORED_DATA_KEYS = ['id'];
 
 const UserRow = ({ user, onEdit, onDelete, errors }) => {
+  const onHandleChange = (id, key, value) => {
+    const error = validateObject(id, key, value);
+    onEdit(id, key, value, error);
+  }
+
+  const inputHasErrors = (key) => {
+    return !!errors.find(error => error.key == key);
+  }
+
   return (
     <Grid container className={styles.userRow} style={{display: "flex", flexDirection: "row"}}>
       {
@@ -19,10 +29,10 @@ const UserRow = ({ user, onEdit, onDelete, errors }) => {
                 key={index}
                 name={dataKey}
                 value={user[dataKey]}
-                onChangehandler={onEdit}
+                onChangehandler={onHandleChange}
                 placeholder={dataKey}
                 id={user.id}
-                error={errors?.includes(dataKey)}
+                error={inputHasErrors(dataKey)}
               />
             )
           }

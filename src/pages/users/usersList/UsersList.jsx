@@ -15,7 +15,7 @@ function UsersList(props) {
       </div>
       <div className={styles.usersListContent}>
         {props.usersData?.map((user, index) => {
-          const userErrors = props.usersErrors.find(userError => userError.id == user.id)?.userErrors;
+          const userErrors = props.errors.filter(error => error.id == user.id);
           return <UserRow key={index} user={user} onEdit={props.handleUserEdit} onDelete={props.onDelete} errors={userErrors}/>
         })}
       </div>
