@@ -8,6 +8,7 @@ import countryOptions from '../../../data/countries.json';
 import validateObject from '../../../utils/Validator';
 
 const IGNORED_DATA_KEYS = ['id'];
+const AUTOCOMPLETE_KEYS = ['country'];
 
 const UserRow = ({ user, onEdit, onDelete, errors }) => {
   const onHandleChange = (id, key, value) => {
@@ -33,6 +34,8 @@ const UserRow = ({ user, onEdit, onDelete, errors }) => {
                 placeholder={dataKey}
                 id={user.id}
                 error={inputHasErrors(dataKey)}
+                isAutoComplete={AUTOCOMPLETE_KEYS.includes(dataKey)}
+                options={countryOptions}
               />
             )
           }

@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { TextField } from '@mui/material';
+import { TextField, Autocomplete } from '@mui/material';
 
 const StyledTextField = styled(TextField)({
   boxShadow: 'none',
@@ -10,7 +10,28 @@ const StyledTextField = styled(TextField)({
   marginRight: '10px'
 });
 
-const InputField = ({ name, value, onChangehandler, error, disabled, placeholder, id }) => {
+const StyledAutoComplete = styled(Autocomplete)({
+  boxShadow: 'none',
+  textTransform: 'none',
+  backgroundColor: '#909196',
+  borderRadius: '4px',
+  width: '210px',
+  marginRight: '10px'
+});
+
+const InputField = ({ name, value, onChangehandler, error, disabled, placeholder, id, isAutoComplete, options }) => {
+  if (isAutoComplete) {
+    return (
+      <StyledAutoComplete
+        value={value}
+        options={options}
+        onChange={(e, value) => onChangehandler(id, name, value)}
+        renderInput={(params) => <TextField {...params} InputLabelProps={{shrink: false, hide: true}}  label={value ? '' : name} />}
+        size="small"        
+      />
+    )
+  }
+
   return (
     <StyledTextField
       name={name}

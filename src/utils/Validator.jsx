@@ -12,7 +12,7 @@ export const ERROR_TYPES = {
 export default function validateObject(id, key, value) {
   let error = {id: id};
 
-  if (!value.length) {
+  if (!value || !value.length) {
     error.type = ERROR_TYPES.EMPTY;
     error.key = key;
     return error;
