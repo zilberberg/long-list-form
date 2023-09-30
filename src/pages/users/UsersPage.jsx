@@ -18,7 +18,7 @@ function UsersPage() {
 
   useEffect(() => {
     if (usersData.length && !dataFetched) {
-      setUsersDataState(usersData);
+      setUsersDataState(usersData.sort((a,b) => a.name.localeCompare(b.name)));
       setDataFetched(true);
     }
   }, [usersData]);
@@ -35,7 +35,7 @@ function UsersPage() {
       } else {
         setEmptyCount(emptyCount+1);
       }
-      setErrors([...errors.filter(e => ({id: e.id, key: e.key} !== {id: error.id, key: error.key})), error]);
+      setErrors([...errors.filter(e => ({id: e.id, key: e.key} != {id: error.id, key: error.key})), error]);
     } else {
       const filteredErrors = errors.filter(e => {
         return !(e.id === id && e.key === key);
