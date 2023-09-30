@@ -98,6 +98,10 @@ function UsersPage() {
     }
   }
 
+  const isSaveDisabled = () => {
+    return Boolean(invalidCount || emptyCount);
+  }
+
   return (
     <div className={styles.pageRoot}>
       <div className={styles.pageContentContainer}>
@@ -114,7 +118,7 @@ function UsersPage() {
             {emptyCount > 0 && <span>Empty Fields - {emptyCount}</span>}
           </div>
           <PrimaryButton
-            disabled={invalidCount || emptyCount}
+            disabled={isSaveDisabled()}
             handleClick={handleSave}
           >
             Save

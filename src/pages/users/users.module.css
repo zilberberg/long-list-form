@@ -23,7 +23,7 @@
 .usersList {
   border: 1px solid #ccc;
   border-radius: 4px;
-  height: 500px;
+  height: max-content;
   width: 100%;
 }
 
@@ -39,7 +39,7 @@
 
 .usersListContent {
   overflow: auto;
-  height: calc(100% - 96px);
+  height: max-content;
   padding: 20px 25px;
 }
 
@@ -59,4 +59,10 @@
 
 .errorContainer {
   margin-right: 10px;
+}
+
+.listNav {
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
 }
