@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 const UsersContext = createContext({
   usersData: [],
   setUsersData: () => {},
-  loading: false,
+  loading: true,
 });
 
 const COOKIE_DATA_AMOUNT = 10;
@@ -14,12 +14,13 @@ const COOKIE_DATA_AMOUNT = 10;
 // value provider
 export const ContextProvider = ({ children }) => {
   const [usersData, setUsersData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [cookiesData, setCookiesData] = useState('');
 
   console.log('usersData', usersData);
 
   useEffect(() => {
+    setLoading(true);
     let dataFromCookie = Cookies.get('data0');
     let cookiesData = [];
     let cookieIndex = 0;
@@ -41,6 +42,7 @@ export const ContextProvider = ({ children }) => {
         clearTimeout(t);
       };
     }
+    setLoading(false);
   }, []);
 
   const updateCookies = (data) => {
@@ -56,7 +58,7 @@ export const ContextProvider = ({ children }) => {
     }
   }, [usersData]);
 
-  const contextValue = useMemo(() => ({ usersData, setUsersData }), [usersData]);
+  const contextValue = useMemo(() => ({ usersData, setUsersData, loading }), [usersData]);
 
   return <UsersContext.Provider value={contextValue}>{children}</UsersContext.Provider>;
 };

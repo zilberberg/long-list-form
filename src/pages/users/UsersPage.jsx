@@ -6,9 +6,10 @@ import { useEffect, useState } from 'react';
 import { userInterface } from '../../data/userInterface';
 import { v4 as uuidv4 } from 'uuid';
 import validateObject, { ERROR_TYPES } from '../../utils/validator';
+import { CircularProgress } from '@mui/material';
 
 function UsersPage() {
-  const { usersData, setUsersData } = useUsersContext();
+  const { usersData, setUsersData, loading } = useUsersContext();
   const [ updatedUsers, setUpdatedUsers ] = useState([]);
   const [ usersDataState, setUsersDataState ] = useState([]);
   const [ errors, setErrors ] = useState([]);
@@ -104,27 +105,30 @@ function UsersPage() {
 
   return (
     <div className={styles.pageRoot}>
-      <div className={styles.pageContentContainer}>
-        <UsersList 
-          usersData={usersDataState}
-          handleAdd={handleAdd}
-          handleUserEdit={handleUserEdit}
-          errors={errors}
-          onDelete={handleDelete}
-        />
-        <div className={styles.rightButtonContainer}>
-          <div className={styles.errorsContainer}>
-            {invalidCount > 0 && <span className={styles.errorContainer}>Invalid Fields - {invalidCount}</span>}
-            {emptyCount > 0 && <span>Empty Fields - {emptyCount}</span>}
+      {
+        loading ? <CircularProgress/> :
+        <div className={styles.pageContentContainer}>
+          <UsersList 
+            usersData={usersDataState}
+            handleAdd={handleAdd}
+            handleUserEdit={handleUserEdit}
+            errors={errors}
+            onDelete={handleDelete}
+          />
+          <div className={styles.rightButtonContainer}>
+            <div className={styles.errorsContainer}>
+              {invalidCount > 0 && <span className={styles.errorContainer}>Invalid Fields - {invalidCount}</span>}
+              {emptyCount > 0 && <span>Empty Fields - {emptyCount}</span>}
+            </div>
+            <PrimaryButton
+              disabled={isSaveDisabled()}
+              handleClick={handleSave}
+            >
+              Save
+            </PrimaryButton>
           </div>
-          <PrimaryButton
-            disabled={isSaveDisabled()}
-            handleClick={handleSave}
-          >
-            Save
-          </PrimaryButton>
         </div>
-      </div>
+      }      
     </div>
   );
 }
